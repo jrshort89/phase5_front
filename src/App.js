@@ -1,27 +1,30 @@
-import * as actionTypes from "./redux/actions";
-import { connect } from "react-redux";
 import "./App.css";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Login from "./components/Login";
+import { useSelector } from "react-redux";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Lessons from "./containers/Lessons";
 
-function App(props) {
+export default function App() {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: prefersDarkMode ? "dark" : "light",
+        },
+      }),
+    [prefersDarkMode]
+  );
+  const loggedIn = useSelector((state) => state.login.loggedIn);
   return (
-    <Router>
-      <div>{props.loggedIn ? "logged in" : "not logged in"}</div>
-      <button onClick={props.onSetLogin}>Toggle Login</button>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>{loggedIn ? <Lessons /> : <Login />}</Router>
+    </ThemeProvider>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    loggedIn: state.login.loggedIn,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSetLogin: () => dispatch({ type: actionTypes.LOGGED_IN }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
