@@ -16,6 +16,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import HomeIcon from "@material-ui/icons/Home";
+import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -67,6 +69,12 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
+        <ListItem button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Home"} />
+        </ListItem>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
@@ -93,6 +101,9 @@ function ResponsiveDrawer(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  const username = useSelector((state) => state.login.username);
+  const lessonName = useSelector((state) => state.lesson.name);
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -108,7 +119,8 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            {username} Replace with lesson title or welcome note<br></br>
+            {lessonName}
           </Typography>
         </Toolbar>
       </AppBar>

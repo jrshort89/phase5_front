@@ -1,6 +1,11 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Login from "./components/Login";
 import { useSelector } from "react-redux";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -24,7 +29,17 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>{loggedIn ? <Lessons /> : <Login />}</Router>
+      <Router>
+        {loggedIn ? <Redirect to="/lessons" /> : <Redirect to="/login" />}
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/lessons">
+            <Lessons />
+          </Route>
+        </Switch>
+      </Router>
     </ThemeProvider>
   );
 }

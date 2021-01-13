@@ -5,9 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
-import loginReducer from "./redux/reducers.js/loginReducers";
+import loginReducer from "./redux/reducers/loginReducers";
+import lessonsReducer from "./redux/reducers/lessonsReducer";
 
-const reducers = combineReducers({ login: loginReducer });
+const reducers = combineReducers({ login: loginReducer, lesson: lessonsReducer });
 const store = createStore(reducers);
 
 ReactDOM.render(
