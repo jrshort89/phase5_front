@@ -20,10 +20,8 @@ import HomeIcon from "@material-ui/icons/Home";
 import { useSelector } from "react-redux";
 import Accordion from "../menus/Accordion";
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
   Link,
 } from "react-router-dom";
 import Lesson from "../components/Lesson";
@@ -173,7 +171,6 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         <Switch>
           <Route path="/lessons/lesson">
-            aasdfasdf
             <Lesson />
           </Route>
           <Route path="/lessons/lesson2">
