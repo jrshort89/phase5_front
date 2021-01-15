@@ -13,3 +13,10 @@ export const setLessons = (lessons) => {
     lessons: lessons,
   };
 };
+
+export const setLesson = (lesson) => {
+  return {
+    type: actionTypes.LESSON,
+    lesson: lesson,
+  };
+};

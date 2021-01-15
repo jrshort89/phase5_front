@@ -7,7 +7,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../redux/actions/lessons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,12 +34,17 @@ export default function SimpleAccordion() {
           <Typography className={classes.heading}>{name}</Typography>
         </AccordionSummary>
         <List>
-          {console.log(lessons)}
-          {lessons.map(({ subject, id }) => (
+          {lessons.map((lesson) => (
             <ListItem button>
               <Typography>
-                <Link to={`/lessons/lesson/${id}`} className="sidemenu">
-                  {subject}
+                <Link
+                  to={`/lessons/lesson/${lesson.id}`}
+                  className="sidemenu"
+                  onClick={() => {
+                    dispatch(actions.setLesson(lesson));
+                  }}
+                >
+                  {lesson.subject}
                 </Link>
               </Typography>
             </ListItem>
@@ -49,6 +55,7 @@ export default function SimpleAccordion() {
   };
 
   const lessons = useSelector((state) => state.lesson.lessons);
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.root}>

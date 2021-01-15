@@ -1,5 +1,4 @@
 import reducer from "../reducers/lessonsReducer";
-// import * as actionTypes from "../actions";
 import * as lessonsActions from "../actions/lessons";
 
 describe("lessons reducer", () => {
@@ -7,6 +6,7 @@ describe("lessons reducer", () => {
     expect(reducer(undefined, {})).toEqual({
       name: "lesson name here",
       lessons: [],
+      lessonId: null,
     });
   });
 
@@ -14,6 +14,15 @@ describe("lessons reducer", () => {
     expect(reducer(undefined, lessonsActions.setLessons(["lessons"]))).toEqual({
       name: "lesson name here",
       lessons: ["lessons"],
+      lessonId: null,
+    });
+  });
+
+  it("should update the lessons id", () => {
+    expect(reducer(undefined, lessonsActions.setLessonId(1))).toEqual({
+      name: "lesson name here",
+      lessons: [],
+      lessonId: 1,
     });
   });
 });

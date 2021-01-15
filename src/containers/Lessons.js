@@ -73,17 +73,15 @@ function ResponsiveDrawer(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   const username = useSelector((state) => state.login.username);
-  const lessonName = useSelector((state) => state.lesson.name);
   const lessons = useSelector((state) => state.lesson.lessons);
+  const lesson = useSelector((state) => state.lesson.lesson);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("/subjects")
-      .then((data) => {
-        dispatch(lessonActions.setLessons(data.data));
-      })
-      .then(console.log(lessons));
+    axios.get("/subjects").then((data) => {
+      dispatch(lessonActions.setLessons(data.data));
+    });
+    //   .then(console.log(lessons));
   }, []);
 
   const drawer = (
@@ -140,8 +138,9 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            {username} Replace with lesson title or welcome note<br></br>
-            {lessonName}
+            {username}
+            <br></br>
+            {lesson ? lesson.subject : 'select a lesson'}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -180,27 +179,15 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         <Switch>
           <Route path="/lessons/lesson">
+            {lesson ? lesson.text : "lesson text"}
             <Lesson />
           </Route>
           <Route path="/lessons/lesson2">
             less 2
             <Lesson />
           </Route>
+          <Route path="/lessons/lesson/:id" component={Lesson} id={props} />
         </Switch>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
       </main>
     </div>
   );

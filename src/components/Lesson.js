@@ -2,16 +2,18 @@ import React, { Component } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import Browser from "./Browser";
 import Console from "./Console";
+import { connect } from "react-redux";
+import * as actions from "../redux/actions/lessons";
 
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/material.css");
 require("codemirror/mode/javascript/javascript.js");
 
-export default class Lesson extends Component {
+class Lesson extends Component {
   state = {
     codeValue: "console.log('test')",
     history: [],
-    submitCode: ""
+    submitCode: "",
   };
 
   componentDidMount() {
@@ -44,10 +46,10 @@ export default class Lesson extends Component {
   };
 
   onSubmitCode = () => {
-        this.setState({
-            submitCode: this.state.codeValue
-        })  
-  }
+    this.setState({
+      submitCode: this.state.codeValue,
+    });
+  };
 
   render() {
     return (
@@ -73,10 +75,23 @@ export default class Lesson extends Component {
           html={null}
           css={null}
           js={this.state.submitCode}
-        //   addHistory={this.addHistory}
+          //   addHistory={this.addHistory}
         />
         <Console history={[{ text: this.state.history }]} />
       </>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    lesson: state.lesson,
+  };
+};
+
+export default connect(mapStateToProps, null)(Lesson);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onTryAutoSignup: () => dispatch(actions.authCheckState()),
+//   };
+// };
