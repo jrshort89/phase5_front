@@ -1,7 +1,8 @@
-import * as actionTypes from "../actions";
+import * as actionTypes from "../actionsTypes";
 
 const initialState = {
   name: "lesson name here",
+  lessons: [],
 };
 
 const lessonReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const lessonReducer = (state = initialState, action) => {
       return {
         ...state,
         name: action.name,
+      };
+    case actionTypes.LESSONS:
+      return {
+        ...state,
+        lessons: [...state.lessons, ...action.lessons],
       };
     default:
       return {

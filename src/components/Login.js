@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import * as actionTypes from "../redux/actions";
+import * as actionTypes from "../redux/actionsTypes";
 
 function Login() {
   const loggedIn = useSelector((state) => state.login.loggedIn);

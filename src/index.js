@@ -7,10 +7,15 @@ import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import loginReducer from "./redux/reducers/loginReducers";
 import lessonsReducer from "./redux/reducers/lessonsReducer";
+import axios from "./axios";
 
-const reducers = combineReducers({ login: loginReducer, lesson: lessonsReducer });
+const reducers = combineReducers({
+  login: loginReducer,
+  lesson: lessonsReducer,
+});
 const store = createStore(reducers);
 
+axios();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

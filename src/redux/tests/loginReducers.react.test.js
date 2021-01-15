@@ -1,5 +1,5 @@
 import reducer from "../reducers/loginReducers";
-import * as actionTypes from "../actions";
+import * as actionTypes from "../actionsTypes";
 
 describe("login reducer", () => {
   it("should return the initial state", () => {

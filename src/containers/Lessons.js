@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,14 +17,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Accordion from "../menus/Accordion";
-import {
-  Switch,
-  Route,
-  Link,
-} from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import Lesson from "../components/Lesson";
+import axios from "../axios";
+import * as lessonActions from "../redux/actions/lessons";
 
 const drawerWidth = 240;
 
@@ -115,6 +113,15 @@ function ResponsiveDrawer(props) {
 
   const username = useSelector((state) => state.login.username);
   const lessonName = useSelector((state) => state.lesson.name);
+  const lessons = useSelector((state) => state.lesson.lessons);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios.get("/lessons").then((data) => {
+      dispatch(lessonActions.setLessons(data.data));
+    });
+    console.log(lessonActions);
+  }, []);
 
   return (
     <div className={classes.root}>

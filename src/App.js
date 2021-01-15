@@ -30,13 +30,20 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        {loggedIn ? <Redirect to="/lessons" /> : <Redirect to="/login" />}
         <Switch>
-          <Route path="/login">
+          {loggedIn ? (
+            <Route path="/lessons">
+              <Lessons />
+            </Route>
+          ) : (
+            <Redirect to="/" />
+          )}
+          <Route path="/">
             <Login />
           </Route>
-          <Route path="/lessons">
-            <Lessons />
+
+          <Route path="*" exact={true}>
+            404 not found
           </Route>
         </Switch>
       </Router>
