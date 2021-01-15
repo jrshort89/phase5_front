@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -63,11 +63,28 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
+  const username = useSelector((state) => state.login.username);
+  const lessonName = useSelector((state) => state.lesson.name);
+  const lessons = useSelector((state) => state.lesson.lessons);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios
+      .get("/subjects")
+      .then((data) => {
+        dispatch(lessonActions.setLessons(data.data));
+      })
+      .then(console.log(lessons));
+  }, []);
 
   const drawer = (
     <div>
@@ -107,21 +124,6 @@ function ResponsiveDrawer(props) {
       </List>
     </div>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
-  const username = useSelector((state) => state.login.username);
-  const lessonName = useSelector((state) => state.lesson.name);
-  const lessons = useSelector((state) => state.lesson.lessons);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    axios.get("/lessons").then((data) => {
-      dispatch(lessonActions.setLessons(data.data));
-    });
-    console.log(lessonActions);
-  }, []);
 
   return (
     <div className={classes.root}>
