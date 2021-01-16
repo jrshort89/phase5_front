@@ -3,6 +3,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -11,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as actions from "../redux/actions/login";
 
 function Copyright() {
   return (
@@ -50,10 +53,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp(props) {
+export default function SignUp() {
   const { register, handleSubmit } = useForm();
   const classes = useStyles();
-  let history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmitHandler = (data) => {
     // axios
@@ -83,15 +86,16 @@ export default function SignUp(props) {
         // setTimeout(() => setError(""), 5000);
       })
       .then((user) => {
-        props.loginHandler(user.user.username);
+        
+        // dispatch(actions.setLoggedIn());
         window.sessionStorage.setItem("username", user.user.username);
         window.sessionStorage.setItem("user_id", user.user.id);
-        history.push("/lessons");
       });
   };
 
   return (
     <Container component="main" maxWidth="xs">
+      {console.log(actions.setLoggedIn())}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -156,6 +160,12 @@ export default function SignUp(props) {
                 autoComplete="current-password"
                 inputRef={register}
               />
+            </Grid>
+            <Grid item xs={12}>
+              {/* <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
+              /> */}
             </Grid>
           </Grid>
           <Button

@@ -5,10 +5,3 @@ export const setLoggedIn = () => {
     type: actionTypes.LOGGED_IN,
   };
 };
-
-export const setUsername = (name) => {
-  return {
-    type: actionTypes.USERNAME,
-    username: name,
-  };
-};

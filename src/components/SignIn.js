@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 function Copyright() {
@@ -52,9 +53,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const { register, handleSubmit } = useForm();
   const classes = useStyles();
+  let history = useHistory();
 
   const onSubmitHandler = (data) => {
     // axios
@@ -73,7 +75,21 @@ export default function SignIn() {
       },
       withCredentials: true,
       body: JSON.stringify({ user: data }),
-    });
+    })
+      .then((data) => {
+        if (data.status === 401) throw data;
+        return data.json();
+      })
+      .catch((err) => {
+        return alert(err.statusText);
+        // setTimeout(() => setError(""), 5000);
+      })
+      .then((user) => {
+        props.loginHandler(user.user.username);
+        window.sessionStorage.setItem("username", user.user.username);
+        window.sessionStorage.setItem("user_id", user.user.id);
+        history.push("/lessons");
+      });
   };
 
   return (

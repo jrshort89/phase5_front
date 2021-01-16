@@ -3,7 +3,6 @@ import { Controlled as CodeMirror } from "react-codemirror2";
 import Browser from "./Browser";
 import Console from "./Console";
 import { connect } from "react-redux";
-import * as actions from "../redux/actions/lessons";
 
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/material.css");
@@ -90,8 +89,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, null)(Lesson);
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onTryAutoSignup: () => dispatch(actions.authCheckState()),
-//   };
-// };
