@@ -73,7 +73,6 @@ function ResponsiveDrawer(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   const username = useSelector((state) => state.login.username);
-  const lessons = useSelector((state) => state.lesson.lessons);
   const lesson = useSelector((state) => state.lesson.lesson);
   const dispatch = useDispatch();
 
@@ -110,7 +109,7 @@ function ResponsiveDrawer(props) {
         ))}
       </List>
       <Divider />
-      <List>
+      {/* <List>
         {["All mail", "Trash", "Spam"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
@@ -119,7 +118,7 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   );
 
@@ -140,7 +139,7 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" noWrap>
             {username}
             <br></br>
-            {lesson ? lesson.subject : 'select a lesson'}
+            {lesson ? lesson.subject : "Select a lesson to start coding!"}
           </Typography>
         </Toolbar>
       </AppBar>

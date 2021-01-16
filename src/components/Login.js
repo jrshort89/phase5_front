@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 import * as actionTypes from "../redux/actionsTypes";
 
 function Login() {
@@ -41,7 +42,8 @@ function Login() {
 
   return (
     <>
-      <div>{loggedIn ? "logged in" : "not logged in"}</div>
+      <div>{loggedIn ? <Redirect to="/lessons" /> : "not logged in"}</div>
+      <Link to="/signup">Sign up!</Link>
       <button onClick={() => dispatch({ type: actionTypes.LOGGED_IN })}>
         Toggle Login
       </button>
