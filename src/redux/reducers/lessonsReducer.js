@@ -16,7 +16,7 @@ const lessonReducer = (state = initialState, action) => {
     case actionTypes.LESSONS:
       return {
         ...state,
-        lessons: [...state.lessons, ...action.lessons],
+        lessons: [...action.lessons],
       };
     case actionTypes.LESSON:
       return {

@@ -118,6 +118,9 @@ export default function SignUp(props) {
                 label="First Name"
                 autoFocus
                 inputRef={register}
+                ref={register({
+                  required: true,
+                })}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -130,6 +133,9 @@ export default function SignUp(props) {
                 name="last_name"
                 autoComplete="lname"
                 inputRef={register}
+                ref={register({
+                  required: true,
+                })}
               />
             </Grid>
             <Grid item xs={12}>
@@ -140,8 +146,12 @@ export default function SignUp(props) {
                 id="email"
                 label="Email Address"
                 name="username"
+                type="email"
                 autoComplete="email"
                 inputRef={register}
+                ref={register({
+                  required: true,
+                })}
               />
             </Grid>
             <Grid item xs={12}>
@@ -155,6 +165,10 @@ export default function SignUp(props) {
                 id="password"
                 autoComplete="current-password"
                 inputRef={register}
+                ref={register({
+                  required: true,
+                  minLength: 6,
+                })}
               />
             </Grid>
           </Grid>

@@ -23,6 +23,8 @@ import { Switch, Route, Link } from "react-router-dom";
 import Lesson from "../components/Lesson";
 import axios from "../axios";
 import * as lessonActions from "../redux/actions/lessons";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import * as loginActions from "../redux/actions/login";
 
 const drawerWidth = 240;
 
@@ -83,6 +85,21 @@ function ResponsiveDrawer(props) {
     //   .then(console.log(lessons));
   }, []);
 
+  function logout() {
+    fetch(`http://localhost:3000/logout`, {
+      method: "DELETE",
+      // credentials: "include",
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+    if (typeof Storage !== undefined) {
+      // sessionStorage.setItem("loggedIn", "false");
+      sessionStorage.setItem("username", "");
+      sessionStorage.setItem("user_id", "");
+      dispatch(loginActions.setLoggedIn());
+    }
+  }
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -94,6 +111,14 @@ function ResponsiveDrawer(props) {
           </ListItemIcon>
           <Link to="/lessons" className="sidemenu">
             <ListItemText primary={"Home"} />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <Link to="/signin" className="sidemenu" onClick={logout}>
+            <ListItemText primary={"Logout"} />
           </Link>
         </ListItem>
         <ListItem>

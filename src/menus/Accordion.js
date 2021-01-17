@@ -35,7 +35,7 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <List>
           {lessons.map((lesson) => (
-            <ListItem button>
+            <ListItem button key={lesson.id}>
               <Typography>
                 <Link
                   to={`/lessons/lesson/${lesson.id}`}

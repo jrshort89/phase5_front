@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,8 +12,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import axios from "axios";
 
 function Copyright() {
@@ -54,7 +55,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn(props) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors, control } = useForm();
+  const [hasError, setHasError] = useState(false);
+  const [hasErrorHelper, setHasErrorHelper] = useState("");
   const classes = useStyles();
   let history = useHistory();
 
@@ -107,38 +110,61 @@ export default function SignIn(props) {
           noValidate
           onSubmit={handleSubmit(onSubmitHandler)}
         >
-          <TextField
-            type="input"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
+          <Controller
+            as={
+              <TextField
+                type="input"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="email"
+                label="Email Address"
+                autoComplete="email"
+                autoFocus
+                // ref={register({
+                //   required: true,
+                // })}
+                required
+                inputRef={register}
+                error={hasError}
+                helperText={hasErrorHelper}
+              />
+            }
             name="email"
-            autoComplete="email"
-            autoFocus
-            ref={register({
-              required: true,
-            })}
-            inputRef={register}
+            control={control}
+            rules={{ required: true }}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
+          {errors.email && (
+            <Alert variant="outlined" severity="error">
+              Email is required!
+            </Alert>
+          )}
+          <Controller
+            as={
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                ref={register({
+                  required: true,
+                })}
+                inputRef={register}
+              />
+            }
             name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            ref={register({
-              required: true,
-            })}
-            inputRef={register}
+            control={control}
+            rules={{ required: true }}
           />
-
+          {errors.password && (
+            <Alert variant="outlined" severity="error">
+              Password is required!
+            </Alert>
+          )}
           {/* <FormControlLabel
             control={
               <Checkbox
