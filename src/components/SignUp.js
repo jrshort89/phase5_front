@@ -10,8 +10,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
 
 function Copyright() {
   return (
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp(props) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors, control } = useForm();
   const classes = useStyles();
   let history = useHistory();
 
@@ -108,68 +109,112 @@ export default function SignUp(props) {
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
+              <Controller
+                as={
+                  <TextField
+                    autoComplete="fname"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    inputRef={register}
+                    ref={register({
+                      required: true,
+                    })}
+                  />
+                }
                 name="first_name"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                inputRef={register}
-                ref={register({
-                  required: true,
-                })}
+                control={control}
+                rules={{ required: true }}
               />
+              {errors.first_name && (
+                <Alert variant="outlined" severity="error">
+                  First name is required!
+                </Alert>
+              )}
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
+              <Controller
+                as={
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    autoComplete="lname"
+                    inputRef={register}
+                    ref={register({
+                      required: true,
+                    })}
+                  />
+                }
                 name="last_name"
-                autoComplete="lname"
-                inputRef={register}
-                ref={register({
-                  required: true,
-                })}
+                control={control}
+                rules={{ required: true }}
               />
+              {errors.last_name && (
+                <Alert variant="outlined" severity="error">
+                  Last name is required!
+                </Alert>
+              )}
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+              <Controller
+                as={
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    type="email"
+                    autoComplete="email"
+                    inputRef={register}
+                    ref={register({
+                      required: true,
+                    })}
+                  />
+                }
                 name="username"
-                type="email"
-                autoComplete="email"
-                inputRef={register}
-                ref={register({
-                  required: true,
-                })}
+                control={control}
+                rules={{ required: true }}
               />
+              {errors.username && (
+                <Alert variant="outlined" severity="error">
+                  Email is required!
+                </Alert>
+              )}
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
+              <Controller
+                as={
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    inputRef={register}
+                    ref={register({
+                      required: true,
+                      minLength: 6,
+                    })}
+                  />
+                }
                 name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                inputRef={register}
-                ref={register({
-                  required: true,
-                  minLength: 6,
-                })}
+                control={control}
+                rules={{ required: true }}
               />
+              {errors.password && (
+                <Alert variant="outlined" severity="error">
+                  Password is required!
+                </Alert>
+              )}
             </Grid>
           </Grid>
           <Button

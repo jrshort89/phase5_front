@@ -41,3 +41,8 @@
     text-decoration: none;
     color: inherit;
 }
+
+.CodeMirror {
+    font-family: Arial, monospace;
+    font-size: 20px;
+}

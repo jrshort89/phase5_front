@@ -26,13 +26,18 @@ export default function SimpleAccordion() {
   const makeAccordian = ({ name, lessons }) => {
     return (
       <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography className={classes.heading}>{name}</Typography>
-        </AccordionSummary>
+        <List>
+          <ListItem button>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              button
+            >
+              <Typography className={classes.heading}>{name}</Typography>
+            </AccordionSummary>
+          </ListItem>
+        </List>
         <List>
           {lessons.map((lesson) => (
             <ListItem button key={lesson.id}>

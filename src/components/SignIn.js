@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { Alert, AlertTitle } from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 import axios from "axios";
 
 function Copyright() {
@@ -56,8 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
   const { register, handleSubmit, errors, control } = useForm();
-  const [hasError, setHasError] = useState(false);
-  const [hasErrorHelper, setHasErrorHelper] = useState("");
   const classes = useStyles();
   let history = useHistory();
 
@@ -126,8 +124,6 @@ export default function SignIn(props) {
                 // })}
                 required
                 inputRef={register}
-                error={hasError}
-                helperText={hasErrorHelper}
               />
             }
             name="email"
