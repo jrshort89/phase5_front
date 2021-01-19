@@ -1,7 +1,7 @@
 import { TextareaAutosize } from "@material-ui/core";
 import React, { Component } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
-// import { test } from "jest";
+import Modal from "./modal/Modal";
 
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/material.css");
@@ -9,9 +9,12 @@ require("codemirror/mode/javascript/javascript.js");
 
 class LessonForm extends Component {
   state = {
-    codeValue: "function newProblem () {\n    // write some code here\n}",
+    codeValue: "const newProblem = () => {\n    // write some code here\n}",
     solution: "Solution",
     test: "testtttt",
+    modal: false,
+    name: "",
+    text: "",
   };
 
   onChangeCodeValue = (value) => {
@@ -26,11 +29,30 @@ class LessonForm extends Component {
     });
   };
 
+  onChangeName = (event) => {
+    this.setState({
+      name: event.target.value,
+    });
+  };
+
+  onChangeText = (event) => {
+    this.setState({
+      text: event.target.value,
+    });
+  };
+
   submitHandler = (event) => {
     event.preventDefault();
     const test = Function(this.state.codeValue);
     this.setState({
       test: test() === Function(this.state.solution)(),
+      modal: true,
+    });
+  };
+
+  toggleModal = () => {
+    this.setState({
+      modal: !this.state.modal,
     });
   };
 
@@ -46,6 +68,8 @@ class LessonForm extends Component {
               color: "white",
               fontSize: "20px",
             }}
+            onChange={(event) => this.onChangeName(event)}
+            value={this.state.name}
           />
           <br />
           <br />
@@ -55,6 +79,8 @@ class LessonForm extends Component {
             className="CodeMirror"
             placeholder="Write the explanation!"
             name="explanation"
+            onChange={(event) => this.onChangeText(event)}
+            value={this.state.text}
           />
           <CodeMirror
             value={this.state.codeValue}
@@ -85,6 +111,16 @@ class LessonForm extends Component {
           />
           <input type="submit" value="Submit" />
         </form>
+        {this.state.modal ? (
+          <Modal
+            open={this.toggleModal}
+            onClose={this.toggleModal}
+            name={this.state.name}
+            text={this.state.text}
+            codeValue={this.state.codeValue}
+            solution={this.state.solution}
+          />
+        ) : null}
       </div>
     );
   }
