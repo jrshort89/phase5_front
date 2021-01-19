@@ -3,7 +3,6 @@ import { Controlled as CodeMirror } from "react-codemirror2";
 import Browser from "./Browser";
 import Console from "./Console";
 import { connect } from "react-redux";
-import * as actions from "../redux/actions/lessons";
 
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/material.css");
@@ -11,7 +10,7 @@ require("codemirror/mode/javascript/javascript.js");
 
 class Lesson extends Component {
   state = {
-    codeValue: "console.log('test')",
+    codeValue: this.props.lesson ? this.props.lesson.exercise : "loading...",
     history: [],
     submitCode: "",
   };
@@ -85,13 +84,8 @@ class Lesson extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    lesson: state.lesson,
+    lesson: state.lesson.lesson,
   };
 };
 
 export default connect(mapStateToProps, null)(Lesson);
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onTryAutoSignup: () => dispatch(actions.authCheckState()),
-//   };
-// };

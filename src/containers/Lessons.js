@@ -25,6 +25,8 @@ import axios from "../axios";
 import * as lessonActions from "../redux/actions/lessons";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as loginActions from "../redux/actions/login";
+import LessonForm from "../components/LessonForm";
+import AddIcon from "@material-ui/icons/Add";
 
 const drawerWidth = 240;
 
@@ -111,6 +113,14 @@ function ResponsiveDrawer(props) {
           </ListItemIcon>
           <Link to="/lessons" className="sidemenu">
             <ListItemText primary={"Home"} />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <AddIcon />
+          </ListItemIcon>
+          <Link to="/lessons/newlesson" className="sidemenu">
+            <ListItemText primary={"New Lesson"} />
           </Link>
         </ListItem>
         <ListItem button>
@@ -206,9 +216,8 @@ function ResponsiveDrawer(props) {
             {lesson ? lesson.text : "lesson text"}
             <Lesson />
           </Route>
-          <Route path="/lessons/lesson2">
-            less 2
-            <Lesson />
+          <Route path="/lessons/newlesson">
+            <LessonForm />
           </Route>
           <Route path="/lessons/lesson/:id" component={Lesson} id={props} />
         </Switch>
