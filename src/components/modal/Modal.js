@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as lessonActions from "../../redux/actions/lessons";
 import { useHistory } from "react-router-dom";
 
@@ -28,24 +28,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimpleModal(props) {
+  const id = useSelector(({ lesson }) =>
+    lesson.lesson ? lesson.lesson.id : null
+  );
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
 
-  const submitHandler = () => {
-    dispatch(
-      lessonActions.newLesson({
-        text: props.text,
-        name: props.name,
-        exercise: props.codeValue,
-        solution: props.solution,
-        test: props.test,
-      },
-      {subject: props.subject}
-    ));
-    history.push("./lessons");
+  const submitHandler = async () => {
+    await dispatch(
+      lessonActions.newLesson(
+        {
+          text: props.text,
+          name: props.name,
+          exercise: props.codeValue,
+          solution: props.solution,
+          test: props.test,
+        },
+        { subject: props.subject }
+      )
+    );
+    history.push("/lessons");
   };
-  
+
   const [modalStyle] = React.useState(getModalStyle);
 
   const body = (

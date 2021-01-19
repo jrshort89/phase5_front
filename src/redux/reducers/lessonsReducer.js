@@ -1,4 +1,5 @@
 import * as actionTypes from "../actionsTypes";
+import { useHistory } from "react-router-dom";
 import axios from "../../axios";
 
 const initialState = {
@@ -26,15 +27,17 @@ const lessonReducer = (state = initialState, action) => {
         lesson: action.lesson,
       };
     case actionTypes.NEW_LESSON:
+      let lesson;
       axios
         .post("/lessons", {
           withCredentials: true,
           lesson: action.lesson,
           subject: action.subject,
         })
-        .then((res) => console.log(res));
+        .then((res) => (lesson = res.data));
       return {
         ...state,
+        lesson: [lesson],
       };
     case actionTypes.ADD_SUBJECT:
       if (state.subjects.includes(action.subject)) return state;

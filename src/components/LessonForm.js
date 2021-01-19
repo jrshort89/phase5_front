@@ -121,6 +121,7 @@ class LessonForm extends Component {
           />
           <input type="submit" value="Submit" onSubmit={this.submitHandler} />
         </form>
+        {this.state.name}
         {this.state.modal ? (
           <Modal
             open={this.toggleModal}

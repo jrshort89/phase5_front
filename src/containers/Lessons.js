@@ -19,7 +19,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
 import { useSelector, useDispatch } from "react-redux";
 import Accordion from "../menus/Accordion";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
 import Lesson from "../components/Lesson";
 import axios from "../axios";
 import * as lessonActions from "../redux/actions/lessons";

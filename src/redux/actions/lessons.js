@@ -25,7 +25,7 @@ export const newLesson = (lesson, subject) => {
   return {
     type: actionTypes.NEW_LESSON,
     lesson: lesson,
-    subject: subject
+    subject: subject,
   };
 };
 

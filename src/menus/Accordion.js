@@ -24,7 +24,7 @@ export default function SimpleAccordion() {
   const classes = useStyles();
 
   const makeAccordian = ({ name, lessons }) => {
-    dispatch(actions.addSubject(name))
+    dispatch(actions.addSubject(name));
     return (
       <Accordion>
         <List>
