@@ -29,7 +29,7 @@ export default function SimpleSelect(props) {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label">Subject</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
@@ -43,7 +43,6 @@ export default function SimpleSelect(props) {
             <MenuItem value={subject}>{subject}</MenuItem>
           ))}
         </Select>
-        <FormHelperText>Select a subject.</FormHelperText>
       </FormControl>
     </div>
   );

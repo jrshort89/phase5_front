@@ -1,4 +1,4 @@
-import { TextareaAutosize } from "@material-ui/core";
+import { TextareaAutosize, TextField } from "@material-ui/core";
 import React, { Component } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import SubjectsMenu from "../menus/SubjectsMenu";
@@ -11,7 +11,7 @@ require("codemirror/mode/javascript/javascript.js");
 class LessonForm extends Component {
   state = {
     codeValue: "const newProblem = () => {\n    // write some code here\n}",
-    solution: null,
+    solution: "",
     test: null,
     modal: false,
     name: "",
@@ -25,9 +25,9 @@ class LessonForm extends Component {
     });
   };
 
-  onChangeSolution = (value) => {
+  onChangeSolution = (event) => {
     this.setState({
-      solution: value,
+      solution: event.target.value,
     });
   };
 
@@ -68,21 +68,29 @@ class LessonForm extends Component {
     return (
       <div>
         <form onSubmit={this.submitHandler}>
-          <input
+          <TextField
+            id="outlined-basic"
+            label="Title"
+            variant="outlined"
             name="name"
             style={{
               width: "60%",
-              backgroundColor: "grey",
+              backgroundColor: "inherit",
               color: "white",
               fontSize: "20px",
             }}
             onChange={(event) => this.onChangeName(event)}
             value={this.state.name}
           />
+          <SubjectsMenu changeSubject={this.onChangeSubject} />
           <br />
           <br />
           <TextareaAutosize
-            style={{ width: "100%", backgroundColor: "grey", color: "white" }}
+            style={{
+              width: "100%",
+              backgroundColor: "inherit",
+              color: "inherit",
+            }}
             rowsMin="5"
             className="CodeMirror"
             placeholder="Write the explanation!"
@@ -92,36 +100,59 @@ class LessonForm extends Component {
           />
           <br />
           <br />
-          <SubjectsMenu changeSubject={this.onChangeSubject} />
-          <CodeMirror
-            value={this.state.codeValue}
-            options={{
-              lineNumbers: true,
-              mode: "javascript",
-              theme: "material",
-            }}
-            onBeforeChange={(editor, data, value) => {
-              // this.setState({ codeValue: value });
-              this.onChangeCodeValue(value);
-            }}
-          />
+          <div style={{ display: "inline", justifyContent: "space-evenly" }}>
+            <div>
+              <CodeMirror
+                value={this.state.codeValue}
+                options={{
+                  lineNumbers: true,
+                  mode: "javascript",
+                  theme: "material",
+                }}
+                onBeforeChange={(editor, data, value) => {
+                  // this.setState({ codeValue: value });
+                  this.onChangeCodeValue(value);
+                }}
+              />
+            </div>
+            <br />
+            <div>
+              {/* <CodeMirror
+                value={this.state.solution}
+                options={{
+                  lineNumbers: true,
+                  mode: "javascript",
+                  theme: "material",
+                }}
+                onBeforeChange={(editor, data, value) => {
+                  // this.setState({ codeValue: value });
+                  this.onChangeSolution(value);
+                }}
+              /> */}
+              <TextField
+                id="outlined-basic"
+                label="Solution"
+                variant="outlined"
+                name="name"
+                style={{
+                  width: "60%",
+                  backgroundColor: "inherit",
+                  color: "white",
+                  fontSize: "20px",
+                }}
+                onChange={(event) => this.onChangeSolution(event)}
+                value={this.state.solution}
+              />
+            </div>
+          </div>
           <br />
-          <br />
-          <CodeMirror
-            value={this.state.solution}
-            options={{
-              lineNumbers: true,
-              mode: "javascript",
-              theme: "material",
-            }}
-            onBeforeChange={(editor, data, value) => {
-              // this.setState({ codeValue: value });
-              this.onChangeSolution(value);
-            }}
+          <TextField
+            type="submit"
+            value="Submit"
+            onSubmit={this.submitHandler}
+            style={{ width: "60%" }}
           />
-          <input type="submit" value="Submit" onSubmit={this.submitHandler} />
         </form>
-        {this.state.name}
         {this.state.modal ? (
           <Modal
             open={this.toggleModal}
