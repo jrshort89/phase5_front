@@ -12,3 +12,5 @@ export const setUsername = (name) => {
     username: name,
   };
 };
+
+export const loginRequest = (data) => {};

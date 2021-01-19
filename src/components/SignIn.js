@@ -15,7 +15,7 @@ import Container from "@material-ui/core/Container";
 import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
-import axios from "axios";
+import axios from "../axios";
 
 function Copyright() {
   return (
@@ -61,7 +61,7 @@ export default function SignIn(props) {
 
   const onSubmitHandler = (data) => {
     // axios
-    //   .post("http://localhost:3000/login", {
+    //   .post("/login", {
     //     user: data,
     //     withCredentials: true,
     //     'Accept': 'application/json',
@@ -78,6 +78,7 @@ export default function SignIn(props) {
       body: JSON.stringify({ user: data }),
     })
       .then((data) => {
+        console.log(data);
         if (data.status === 401) throw data;
         return data.json();
       })

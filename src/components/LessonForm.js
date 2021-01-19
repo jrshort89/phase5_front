@@ -1,6 +1,7 @@
 import { TextareaAutosize } from "@material-ui/core";
 import React, { Component } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
+import SubjectsMenu from "../menus/SubjectsMenu";
 import Modal from "./modal/Modal";
 
 require("codemirror/lib/codemirror.css");
@@ -10,11 +11,12 @@ require("codemirror/mode/javascript/javascript.js");
 class LessonForm extends Component {
   state = {
     codeValue: "const newProblem = () => {\n    // write some code here\n}",
-    solution: "Solution",
-    test: "testtttt",
+    solution: null,
+    test: null,
     modal: false,
     name: "",
     text: "",
+    subject: "",
   };
 
   onChangeCodeValue = (value) => {
@@ -38,6 +40,12 @@ class LessonForm extends Component {
   onChangeText = (event) => {
     this.setState({
       text: event.target.value,
+    });
+  };
+
+  onChangeSubject = (event) => {
+    this.setState({
+      subject: event.target.value,
     });
   };
 
@@ -82,6 +90,9 @@ class LessonForm extends Component {
             onChange={(event) => this.onChangeText(event)}
             value={this.state.text}
           />
+          <br />
+          <br />
+          <SubjectsMenu changeSubject={this.onChangeSubject} />
           <CodeMirror
             value={this.state.codeValue}
             options={{
@@ -96,7 +107,6 @@ class LessonForm extends Component {
           />
           <br />
           <br />
-          {this.state.test ? "true" : "false"}
           <CodeMirror
             value={this.state.solution}
             options={{
@@ -109,7 +119,7 @@ class LessonForm extends Component {
               this.onChangeSolution(value);
             }}
           />
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" onSubmit={this.submitHandler} />
         </form>
         {this.state.modal ? (
           <Modal
@@ -119,6 +129,8 @@ class LessonForm extends Component {
             text={this.state.text}
             codeValue={this.state.codeValue}
             solution={this.state.solution}
+            subject={this.state.subject}
+            test={this.state.test}
           />
         ) : null}
       </div>

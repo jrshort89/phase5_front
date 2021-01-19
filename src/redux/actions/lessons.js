@@ -20,3 +20,18 @@ export const setLesson = (lesson) => {
     lesson: lesson,
   };
 };
+
+export const newLesson = (lesson, subject) => {
+  return {
+    type: actionTypes.NEW_LESSON,
+    lesson: lesson,
+    subject: subject
+  };
+};
+
+export const addSubject = (subject) => {
+  return {
+    type: actionTypes.ADD_SUBJECT,
+    subject: subject,
+  };
+};
