@@ -174,7 +174,7 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" noWrap>
             {username}
             <br></br>
-            {lesson ? lesson.subject : "Select a lesson to start coding!"}
+            {lesson ? lesson.name : "Select a lesson to start coding!"}
           </Typography>
         </Toolbar>
       </AppBar>

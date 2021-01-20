@@ -82,7 +82,12 @@ class LessonForm extends Component {
             onChange={(event) => this.onChangeName(event)}
             value={this.state.name}
           />
-          <SubjectsMenu changeSubject={this.onChangeSubject} />
+          <br />
+          <br />
+          <SubjectsMenu
+            changeSubject={this.onChangeSubject}
+            style={{ fontSize: "20px" }}
+          />
           <br />
           <br />
           <TextareaAutosize

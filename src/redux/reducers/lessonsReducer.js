@@ -1,5 +1,4 @@
 import * as actionTypes from "../actionsTypes";
-import { useHistory } from "react-router-dom";
 import axios from "../../axios";
 
 const initialState = {
@@ -7,6 +6,7 @@ const initialState = {
   lessons: [],
   lesson: null,
   subjects: [],
+  codeValue: ""
 };
 
 const lessonReducer = (state = initialState, action) => {
@@ -44,6 +44,11 @@ const lessonReducer = (state = initialState, action) => {
       return {
         ...state,
         subjects: [...state.subjects, action.subject],
+      };
+    case actionTypes.CODE_VALUE:
+      return {
+        ...state,
+        codeValue: action.codeValue
       };
     default:
       return {

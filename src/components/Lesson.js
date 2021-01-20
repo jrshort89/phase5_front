@@ -10,7 +10,7 @@ require("codemirror/mode/javascript/javascript.js");
 
 class Lesson extends Component {
   state = {
-    codeValue: this.props.lesson ? this.props.lesson.exercise : "loading...",
+    codeValue: "",
     history: [],
     submitCode: "",
   };
@@ -53,8 +53,13 @@ class Lesson extends Component {
   render() {
     return (
       <>
+        {console.log(this.props?.lesson)}
         <CodeMirror
-          value={this.state.codeValue}
+          value={
+            this.state.codeValue
+              ? this.state.codeValue
+              : this.props.lesson?.exercise
+          }
           options={{
             lineNumbers: true,
             mode: "javascript",

@@ -35,3 +35,10 @@ export const addSubject = (subject) => {
     subject: subject,
   };
 };
+
+export const setCodeValue = (codeValue) => {
+  return {
+    type: actionTypes.CODE_VALUE,
+    codeValue: codeValue
+  }
+}
