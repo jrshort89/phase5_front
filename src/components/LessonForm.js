@@ -2,6 +2,7 @@ import { TextareaAutosize, TextField } from "@material-ui/core";
 import React, { Component } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import SubjectsMenu from "../menus/SubjectsMenu";
+import LessonTests from "./LessonTests";
 import Modal from "./modal/Modal";
 
 require("codemirror/lib/codemirror.css");
@@ -10,9 +11,10 @@ require("codemirror/mode/javascript/javascript.js");
 
 class LessonForm extends Component {
   state = {
-    codeValue: "const newProblem = () => {\n    // write some code here\n}",
+    codeValue:
+      "function newProblem() {\n    // write some code here\n return 6 \n};",
     solution: "",
-    test: null,
+    arguments: null,
     modal: false,
     name: "",
     text: "",
@@ -49,11 +51,17 @@ class LessonForm extends Component {
     });
   };
 
+  onChangeArguments = (event) => {
+    const input = Function("return " + event.target.value)();
+    this.setState({
+      arguments: input,
+    });
+  };
+
   submitHandler = (event) => {
     event.preventDefault();
-    const test = Function(this.state.codeValue);
     this.setState({
-      test: test() === Function(this.state.solution)(),
+      // test: test() === Function(this.state.solution)(),
       modal: true,
     });
   };
@@ -122,21 +130,31 @@ class LessonForm extends Component {
             </div>
             <br />
             <div>
-              {/* <CodeMirror
-                value={this.state.solution}
-                options={{
-                  lineNumbers: true,
-                  mode: "javascript",
-                  theme: "material",
-                }}
-                onBeforeChange={(editor, data, value) => {
-                  // this.setState({ codeValue: value });
-                  this.onChangeSolution(value);
-                }}
-              /> */}
+              <LessonTests
+                codeValue={this.state.codeValue}
+                solution={this.state.solution}
+                arguments={this.state.arguments}
+              />
+              <br />
               <TextField
                 id="outlined-basic"
-                label="Solution"
+                label="Arguments"
+                variant="outlined"
+                name="name"
+                style={{
+                  width: "60%",
+                  backgroundColor: "inherit",
+                  color: "white",
+                  fontSize: "20px",
+                }}
+                onChange={(event) => this.onChangeArguments(event)}
+                value={this.state.arguments}
+              />
+              <br />
+              <br />
+              <TextField
+                id="outlined-basic"
+                label="Expected output"
                 variant="outlined"
                 name="name"
                 style={{
@@ -150,6 +168,7 @@ class LessonForm extends Component {
               />
             </div>
           </div>
+          <br />
           <br />
           <TextField
             type="submit"
@@ -167,7 +186,7 @@ class LessonForm extends Component {
             codeValue={this.state.codeValue}
             solution={this.state.solution}
             subject={this.state.subject}
-            test={this.state.test}
+            arguments={this.state.arguments}
           />
         ) : null}
       </div>

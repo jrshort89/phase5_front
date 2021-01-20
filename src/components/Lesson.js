@@ -53,7 +53,6 @@ class Lesson extends Component {
   render() {
     return (
       <>
-        {console.log(this.props?.lesson)}
         <CodeMirror
           value={
             this.state.codeValue
