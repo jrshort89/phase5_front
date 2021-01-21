@@ -39,6 +39,13 @@ export const addSubject = (subject) => {
 export const setCodeValue = (codeValue) => {
   return {
     type: actionTypes.CODE_VALUE,
-    codeValue: codeValue
-  }
-}
+    codeValue: codeValue,
+  };
+};
+
+export const addLessonTest = (lessonTest) => {
+  return {
+    type: actionTypes.NEW_LESSON_TEST,
+    lessonTest: lessonTest,
+  };
+};

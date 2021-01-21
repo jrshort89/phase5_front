@@ -134,26 +134,16 @@ function ResponsiveDrawer(props) {
         <ListItem>
           <Accordion />
         </ListItem>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {/* {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
-        ))}
+        ))} */}
       </List>
       <Divider />
-      {/* <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
     </div>
   );
 
@@ -171,10 +161,15 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            {username}
-            <br></br>
+          <Typography variant="h6" noWrap className="font">
             {lesson ? lesson.name : "Select a lesson to start coding!"}
+            <Typography
+              variant="h6"
+              noWrap
+              style={{ float: "right", display: "flex" }}
+            >
+              {username}
+            </Typography>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -213,8 +208,10 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         <Switch>
           <Route path="/lessons/lesson">
-            {lesson ? lesson.text : "lesson text"}
-            <Lesson />
+            <div className="font">
+              {lesson ? lesson.text : "lesson text"}
+              <Lesson />
+            </div>
           </Route>
           <Route path="/lessons/newlesson">
             <LessonForm />

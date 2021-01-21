@@ -6,7 +6,8 @@ const initialState = {
   lessons: [],
   lesson: null,
   subjects: [],
-  codeValue: ""
+  codeValue: "",
+  lessonTests: [],
 };
 
 const lessonReducer = (state = initialState, action) => {
@@ -33,11 +34,13 @@ const lessonReducer = (state = initialState, action) => {
           withCredentials: true,
           lesson: action.lesson,
           subject: action.subject,
+          lessonTests: state.lessonTests,
         })
         .then((res) => (lesson = res.data));
       return {
         ...state,
         lesson: [lesson],
+        lessonTests: []
       };
     case actionTypes.ADD_SUBJECT:
       if (state.subjects.includes(action.subject)) return state;
@@ -48,7 +51,12 @@ const lessonReducer = (state = initialState, action) => {
     case actionTypes.CODE_VALUE:
       return {
         ...state,
-        codeValue: action.codeValue
+        codeValue: action.codeValue,
+      };
+    case actionTypes.NEW_LESSON_TEST:
+      return {
+        ...state,
+        lessonTests: [...state.lessonTests, action.lessonTest],
       };
     default:
       return {

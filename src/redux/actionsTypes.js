@@ -8,3 +8,5 @@ export const LESSON = "LESSON";
 export const NEW_LESSON = "NEW_LESSON";
 export const ADD_SUBJECT = "ADD_SUBJECT";
 export const CODE_VALUE = "CODE_VALUE";
+
+export const NEW_LESSON_TEST = "NEW_LESSON_TEST";

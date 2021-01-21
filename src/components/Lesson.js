@@ -50,9 +50,23 @@ class Lesson extends Component {
     });
   };
 
+  testHandler = () => {
+    try {
+      let test = Function("return " + this.state.codeValue)();
+      console.log(
+        test() === Function("return " + this.props.lesson?.solution)()
+      );
+      return test() === Function("return " + this.props.lesson?.solution)();
+    } catch {
+      return false;
+    }
+  };
+
   render() {
     return (
       <>
+        <br></br>
+        <br></br>
         <CodeMirror
           value={
             this.state.codeValue
@@ -73,6 +87,7 @@ class Lesson extends Component {
           }}
         />
         <button onClick={this.onSubmitCode}>Submit</button>
+        {this.testHandler() ? "true" : "no works"}
         <Browser
           playgroundId={null}
           html={null}

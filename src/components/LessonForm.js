@@ -61,7 +61,6 @@ class LessonForm extends Component {
   submitHandler = (event) => {
     event.preventDefault();
     this.setState({
-      // test: test() === Function(this.state.solution)(),
       modal: true,
     });
   };
@@ -69,6 +68,13 @@ class LessonForm extends Component {
   toggleModal = () => {
     this.setState({
       modal: !this.state.modal,
+    });
+  };
+
+  onSubmitTest = () => {
+    this.setState({
+      solution: "",
+      arguments: "",
     });
   };
 
@@ -134,6 +140,7 @@ class LessonForm extends Component {
                 codeValue={this.state.codeValue}
                 solution={this.state.solution}
                 arguments={this.state.arguments}
+                onSubmitTest={this.onSubmitTest}
               />
               <br />
               <TextField

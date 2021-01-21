@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { useSelector, useDispatch } from "react-redux";
 import CancelIcon from "@material-ui/icons/Cancel";
+import * as actions from "../redux/actions/lessons";
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LessonTests(props) {
+  const dispatch = useDispatch();
+  const lessonTests = useSelector((state) => state.lesson.lessonTests);
   const classes = useStyles();
 
   const testHandler = () => {
@@ -37,36 +41,51 @@ export default function LessonTests(props) {
     }
   };
 
+  const submitTest = (newTest) => {
+    dispatch(actions.addLessonTest(newTest));
+    props.onSubmitTest();
+  };
+
+  const resultsHandler = (array) => {
+    return array?.map((test, index) => {
+      return (
+        <Paper
+          style={{
+            float: "left",
+            width: "33.33%",
+            fontSize: "20px",
+          }}
+          elevation={3}
+        >
+          {test}
+        </Paper>
+      );
+    });
+  };
+
+  const submitTestsHandler = () => {
+    console.log(lessonTests);
+  };
+
   return (
-    <div style={{ float: "right", width: "40%" }}>
-      <br />
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        {testHandler() ? (
-          <CheckCircleOutlineIcon
-            style={{ color: "green", fontSize: "3rem" }}
-          />
-        ) : (
-          <CancelIcon style={{ color: "red", fontSize: "3rem" }} />
-        )}
+    <>
+      <div style={{ float: "right", width: "40%" }}>
+        <br />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {testHandler() ? (
+            <CheckCircleOutlineIcon
+              style={{ color: "green", fontSize: "3rem" }}
+              onClick={() =>
+                submitTest([props.arguments, props.solution, runFunction()])
+              }
+            />
+          ) : (
+            <CancelIcon style={{ color: "red", fontSize: "3rem" }} />
+          )}
+          <br />
+        </div>
+        {lessonTests?.map((test) => resultsHandler(test))}
       </div>
-      <Paper
-        style={{ float: "left", width: "100%", fontSize: "20px" }}
-        elevation={3}
-      >
-        {runFunction()}
-      </Paper>
-      <Paper
-        style={{ float: "left", width: "50%", fontSize: "20px" }}
-        elevation={3}
-      >
-        {props.arguments}
-      </Paper>
-      <Paper
-        style={{ float: "right", width: "50%", fontSize: "20px" }}
-        elevation={3}
-      >
-        {props.solution}
-      </Paper>
-    </div>
+    </>
   );
 }
