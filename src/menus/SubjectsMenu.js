@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { useSelector } from "react-redux";
@@ -28,7 +27,7 @@ export default function SimpleSelect(props) {
 
   return (
     <div>
-      <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl} required>
         <InputLabel id="demo-simple-select-helper-label">Subject</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
@@ -36,9 +35,6 @@ export default function SimpleSelect(props) {
           value={age}
           onChange={handleChange}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
           {subjects.map((subject) => (
             <MenuItem value={subject}>{subject}</MenuItem>
           ))}

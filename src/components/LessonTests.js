@@ -63,10 +63,6 @@ export default function LessonTests(props) {
     });
   };
 
-  const submitTestsHandler = () => {
-    console.log(lessonTests);
-  };
-
   return (
     <>
       <div style={{ float: "right", width: "40%" }}>

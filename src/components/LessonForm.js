@@ -93,6 +93,7 @@ class LessonForm extends Component {
               color: "white",
               fontSize: "20px",
             }}
+            required
             onChange={(event) => this.onChangeName(event)}
             value={this.state.name}
           />
@@ -105,6 +106,7 @@ class LessonForm extends Component {
           <br />
           <br />
           <TextareaAutosize
+            required
             style={{
               width: "100%",
               backgroundColor: "inherit",
@@ -160,6 +162,7 @@ class LessonForm extends Component {
               <br />
               <br />
               <TextField
+                required
                 id="outlined-basic"
                 label="Expected output"
                 variant="outlined"
