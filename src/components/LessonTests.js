@@ -24,9 +24,32 @@ export default function LessonTests(props) {
   const classes = useStyles();
 
   const testHandler = () => {
+    // try {
+    //   let test = Function("return " + props.codeValue)();
+    //   let args = Function("return " + props.arguments)();
+    //   return test(args) === Function("return " + props.solution)();
+    // } catch {
+    //   return false;
+    // }
     try {
+      let results;
       let test = Function("return " + props.codeValue)();
-      return test(props.arguments) === Function("return " + props.solution)();
+      let args = Function("return " + props.arguments)();
+      let solution = Function("return " + props.solution)();
+      if (Array.isArray(solution)) {
+        const ans = test(args);
+        for (let i = 0; i < solution.length; i++) {
+          console.log(ans[i], solution[i]);
+          if (ans[i] !== solution[i]) {
+            results = false;
+            break;
+          }
+          results = true;
+        }
+      } else {
+        return test(args) === Function("return " + props.solution)();
+      }
+      return results;
     } catch {
       return false;
     }
@@ -34,8 +57,9 @@ export default function LessonTests(props) {
 
   const runFunction = () => {
     try {
+      let args = Function("return " + props.arguments)();
       let test = Function("return " + props.codeValue)();
-      return test(props.arguments);
+      return test(args);
     } catch {
       return "Error!";
     }
@@ -48,6 +72,7 @@ export default function LessonTests(props) {
 
   const resultsHandler = (array) => {
     return array?.map((test, index) => {
+      if (test === "") test = "none";
       return (
         <Paper
           style={{

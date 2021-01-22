@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
+import Button from "@material-ui/core/Button";
+import ChallengeTests from "./ChallengeTests";
 import Browser from "./Browser";
 import Console from "./Console";
 import { connect } from "react-redux";
@@ -53,9 +55,6 @@ class Lesson extends Component {
   testHandler = () => {
     try {
       let test = Function("return " + this.state.codeValue)();
-      console.log(
-        test() === Function("return " + this.props.lesson?.solution)()
-      );
       return test() === Function("return " + this.props.lesson?.solution)();
     } catch {
       return false;
@@ -67,6 +66,7 @@ class Lesson extends Component {
       <>
         <br></br>
         <br></br>
+        {console.log(this.props.lesson)}
         <CodeMirror
           value={
             this.state.codeValue
@@ -82,20 +82,27 @@ class Lesson extends Component {
             // this.setState({ codeValue: value });
             this.onChangeCodeValue(value);
           }}
-          onChange={(editor, data, value) => {
-            return;
-          }}
         />
-        <button onClick={this.onSubmitCode}>Submit</button>
+        <Button
+          onClick={this.onSubmitCode}
+          style={{ float: "right" }}
+          variant="outlined"
+        >
+          Submit
+        </Button>
         {this.testHandler() ? "true" : "no works"}
-        <Browser
+        <ChallengeTests
+          codeValue={this.state.codeValue}
+          tests={this.props.lesson?.tests}
+        />
+        {/* <Browser
           playgroundId={null}
           html={null}
           css={null}
           js={this.state.submitCode}
           //   addHistory={this.addHistory}
         />
-        <Console history={[{ text: this.state.history }]} />
+        <Console history={[{ text: this.state.history }]} /> */}
       </>
     );
   }

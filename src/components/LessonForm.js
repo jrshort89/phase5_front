@@ -12,7 +12,7 @@ require("codemirror/mode/javascript/javascript.js");
 class LessonForm extends Component {
   state = {
     codeValue:
-      "function newProblem() {\n    // write some code here\n return 6 \n};",
+      "function newProblem() {\n    // write some code here\n return [1] \n};",
     solution: "",
     arguments: null,
     modal: false,
@@ -52,9 +52,10 @@ class LessonForm extends Component {
   };
 
   onChangeArguments = (event) => {
-    const input = Function("return " + event.target.value)();
+    // try {}
+    // const input = Function("return " + event.target.value)();
     this.setState({
-      arguments: input,
+      arguments: event.target.value,
     });
   };
 
@@ -111,6 +112,7 @@ class LessonForm extends Component {
               width: "100%",
               backgroundColor: "inherit",
               color: "inherit",
+              fontSize: "20px",
             }}
             rowsMin="5"
             className="CodeMirror"
@@ -162,7 +164,6 @@ class LessonForm extends Component {
               <br />
               <br />
               <TextField
-                required
                 id="outlined-basic"
                 label="Expected output"
                 variant="outlined"
