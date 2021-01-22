@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import Button from "@material-ui/core/Button";
 import ChallengeTests from "./ChallengeTests";
-import Browser from "./Browser";
-import Console from "./Console";
+import axios from "../axios";
 import { connect } from "react-redux";
 
 require("codemirror/lib/codemirror.css");
@@ -13,13 +12,7 @@ require("codemirror/mode/javascript/javascript.js");
 class Lesson extends Component {
   state = {
     codeValue: "",
-    history: [],
-    submitCode: "",
   };
-
-  componentDidMount() {
-    this.onSubmitHistory();
-  }
 
   onChangeCodeValue = (value) => {
     this.setState({
@@ -27,29 +20,16 @@ class Lesson extends Component {
     });
   };
 
-  addHistory = (text) => {
-    const newHistory = [text];
-    this.setState({
-      history: newHistory,
-    });
-    this.onSubmitHistory();
-  };
-
-  onSubmitHistory = () => {
-    window.addEventListener("message", (e) => {
-      // TODO: Match by origin
-      // if (e.origin !== origin) return false;
-      if (!e.data) return false; // only handle if theres data
-      if (typeof e.data !== "string") return false; // data must be a string
-      if (e.data.includes("_")) return false; // dont watch for events emitted by the react library
-      this.addHistory(e.data);
-    });
-  };
-
   onSubmitCode = () => {
-    this.setState({
-      submitCode: this.state.codeValue,
-    });
+    axios
+      .post("/solutions", {
+        solution: {
+          text: this.state.codeValue,
+          lesson_id: this.props.lesson.id,
+        },
+        user_id: window.sessionStorage.getItem("user_id"),
+      })
+      .then((res) => console.log(res));
   };
 
   testHandler = () => {
@@ -66,7 +46,6 @@ class Lesson extends Component {
       <>
         <br></br>
         <br></br>
-        {console.log(this.props.lesson)}
         <CodeMirror
           value={
             this.state.codeValue
@@ -79,7 +58,6 @@ class Lesson extends Component {
             theme: "material",
           }}
           onBeforeChange={(editor, data, value) => {
-            // this.setState({ codeValue: value });
             this.onChangeCodeValue(value);
           }}
         />
@@ -95,14 +73,6 @@ class Lesson extends Component {
           codeValue={this.state.codeValue}
           tests={this.props.lesson?.tests}
         />
-        {/* <Browser
-          playgroundId={null}
-          html={null}
-          css={null}
-          js={this.state.submitCode}
-          //   addHistory={this.addHistory}
-        />
-        <Console history={[{ text: this.state.history }]} /> */}
       </>
     );
   }

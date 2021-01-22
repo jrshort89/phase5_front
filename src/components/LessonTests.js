@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { useSelector, useDispatch } from "react-redux";
 import CancelIcon from "@material-ui/icons/Cancel";
 import * as actions from "../redux/actions/lessons";
@@ -94,7 +94,7 @@ export default function LessonTests(props) {
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
           {testHandler() ? (
-            <CheckCircleOutlineIcon
+            <CheckCircleIcon
               style={{ color: "green", fontSize: "3rem" }}
               onClick={() =>
                 submitTest([props.arguments, props.solution, runFunction()])
