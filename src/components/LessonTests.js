@@ -24,13 +24,6 @@ export default function LessonTests(props) {
   const classes = useStyles();
 
   const testHandler = () => {
-    // try {
-    //   let test = Function("return " + props.codeValue)();
-    //   let args = Function("return " + props.arguments)();
-    //   return test(args) === Function("return " + props.solution)();
-    // } catch {
-    //   return false;
-    // }
     try {
       let results;
       let test = Function("return " + props.codeValue)();
@@ -39,7 +32,6 @@ export default function LessonTests(props) {
       if (Array.isArray(solution)) {
         const ans = test(args);
         for (let i = 0; i < solution.length; i++) {
-          console.log(ans[i], solution[i]);
           if (ans[i] !== solution[i]) {
             results = false;
             break;

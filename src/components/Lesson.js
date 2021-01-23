@@ -68,7 +68,6 @@ class Lesson extends Component {
         >
           Submit
         </Button>
-        {this.testHandler() ? "true" : "no works"}
         <ChallengeTests
           codeValue={this.state.codeValue}
           tests={this.props.lesson?.tests}

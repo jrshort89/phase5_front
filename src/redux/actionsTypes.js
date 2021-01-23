@@ -10,3 +10,6 @@ export const ADD_SUBJECT = "ADD_SUBJECT";
 export const CODE_VALUE = "CODE_VALUE";
 
 export const NEW_LESSON_TEST = "NEW_LESSON_TEST";
+
+export const SOLUTIONS = "SOLUTIONS";
+export const SET_SOLUTIONS = "SET_SOLUTIONS";

@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import * as lessonActions from "../../redux/actions/lessons";
 import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 function getModalStyle() {
   const top = 50;
@@ -28,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimpleModal(props) {
-  const id = useSelector(({ lesson }) =>
-    lesson.lesson ? lesson.lesson.id : null
+  const lessonTests = useSelector(({ lesson }) =>
+    lesson.lessonTests ? lesson.lessonTests : null
   );
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -61,7 +62,10 @@ export default function SimpleModal(props) {
       <p id="simple-modal-description">{props.codeValue}</p>
       <p id="simple-modal-description">{props.solution}</p>
       <p id="simple-modal-description">{props.test}</p>
-      <button onClick={submitHandler}>Submit</button>
+      <p id="simple-modal-description">{lessonTests}</p>
+      <Button variant="outlined" onClick={submitHandler}>
+        Submit
+      </Button>
       <SimpleModal />
     </div>
   );

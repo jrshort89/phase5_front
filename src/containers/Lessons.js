@@ -25,6 +25,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as loginActions from "../redux/actions/login";
 import LessonForm from "../components/LessonForm";
 import AddIcon from "@material-ui/icons/Add";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import Solutions from "../components/Solutions";
 
 const drawerWidth = 240;
 
@@ -115,6 +117,14 @@ function ResponsiveDrawer(props) {
         </ListItem>
         <ListItem button>
           <ListItemIcon>
+            <FavoriteIcon />
+          </ListItemIcon>
+          <Link to="/lessons/solutions" className="sidemenu">
+            <ListItemText primary={"Solutions"} />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
             <AddIcon />
           </ListItemIcon>
           <Link to="/lessons/newlesson" className="sidemenu">
@@ -132,14 +142,6 @@ function ResponsiveDrawer(props) {
         <ListItem>
           <Accordion />
         </ListItem>
-        {/* {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))} */}
       </List>
       <Divider />
     </div>
@@ -205,6 +207,11 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Switch>
+          <Route path="/lessons" exact={true}>
+            <div style={{ justifyContent: "center", display: "flex" }}>
+              <img src="https://reactjs.org/logo-og.png" alt="React logo" />
+            </div>
+          </Route>
           <Route path="/lessons/lesson">
             <div className="font">
               {lesson ? lesson.text : "lesson text"}
@@ -213,6 +220,9 @@ function ResponsiveDrawer(props) {
           </Route>
           <Route path="/lessons/newlesson">
             <LessonForm />
+          </Route>
+          <Route path="/lessons/solutions">
+            <Solutions />
           </Route>
           <Route path="/lessons/lesson/:id" component={Lesson} id={props} />
         </Switch>

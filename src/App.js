@@ -43,7 +43,6 @@ export default function App() {
       <Route path="/signup">
         <SignUp loginHandler={loggedInHandler} />
       </Route>
-      {/* <Redirect to="/signin" /> */}
       <Route path="*" exact={true}>
         404 not found
       </Route>
@@ -70,24 +69,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        {routes}
-        {/* <Switch>
-          {loggedIn ? (
-            <Route path="/lessons">
-              <Lessons />
-            </Route>
-          ) : (
-            <Redirect to="/login" />
-          )}
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="*" exact={true}>
-            404 not found
-          </Route>
-        </Switch> */}
-      </Router>
+      <Router>{routes}</Router>
     </ThemeProvider>
   );
 }

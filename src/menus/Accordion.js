@@ -28,7 +28,7 @@ export default function SimpleAccordion() {
     return (
       <Accordion>
         <List>
-          <ListItem button>
+          <ListItem button key="name">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -41,7 +41,7 @@ export default function SimpleAccordion() {
         </List>
         <List>
           {lessons.map((lesson) => (
-            <ListItem button key={lesson.id}>
+            <ListItem button key={lesson.name}>
               <Typography>
                 <Link
                   to={`/lessons/lesson/${lesson.id}`}
