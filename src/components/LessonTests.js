@@ -47,16 +47,6 @@ export default function LessonTests(props) {
     }
   };
 
-  const runFunction = () => {
-    try {
-      let args = Function("return " + props.arguments)();
-      let test = Function("return " + props.codeValue)();
-      return test(args);
-    } catch {
-      return "Error!";
-    }
-  };
-
   const submitTest = (newTest) => {
     dispatch(actions.addLessonTest(newTest));
     props.onSubmitTest();
@@ -69,7 +59,7 @@ export default function LessonTests(props) {
         <Paper
           style={{
             float: "left",
-            width: "33.33%",
+            width: "50%",
             fontSize: "20px",
           }}
           elevation={3}
@@ -89,11 +79,16 @@ export default function LessonTests(props) {
             <CheckCircleIcon
               style={{ color: "green", fontSize: "3rem" }}
               onClick={() =>
-                submitTest([props.arguments, props.solution, runFunction()])
+                submitTest([props.arguments, props.solution])
               }
             />
           ) : (
-            <CancelIcon style={{ color: "red", fontSize: "3rem" }} />
+            <CancelIcon
+              style={{ color: "red", fontSize: "3rem" }}
+              onClick={() =>
+                submitTest([props.arguments, props.solution])
+              }
+            />
           )}
           <br />
         </div>

@@ -12,7 +12,6 @@ export default function Solutions() {
   useEffect(() => {
     axios.get("/solutions").then((res) => {
       setSolutions(res.data);
-      console.log(res.data);
     });
   }, []);
 
