@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../redux/actions/solutions";
 import axios from "../axios";
 
 export default function Solutions() {
@@ -20,7 +18,7 @@ export default function Solutions() {
       ? solutions.map((solution) => (
           <>
             <li key={solution.lesson.name}>{solution.lesson.name}</li>
-            <li key={solution.lesson.text}>{solution.lesson.text}</li>
+            <li key={solution.lesson.text}>{solution.text}</li>
             {/* <li key={solution.lesson.name}>{solution.text}</li> */}
           </>
         ))

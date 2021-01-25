@@ -17,7 +17,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
 import { useSelector, useDispatch } from "react-redux";
 import Accordion from "../menus/Accordion";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, useParams } from "react-router-dom";
 import Lesson from "../components/Lesson";
 import axios from "../axios";
 import * as lessonActions from "../redux/actions/lessons";
@@ -68,6 +68,7 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { id } = useParams();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -79,12 +80,12 @@ function ResponsiveDrawer(props) {
   const username = useSelector((state) => state.login.username);
   const lesson = useSelector((state) => state.lesson.lesson);
   const dispatch = useDispatch();
-
+  console.log(id);
   useEffect(() => {
     axios.get("/subjects").then((data) => {
       dispatch(lessonActions.setLessons(data.data));
     });
-    //   .then(console.log(lessons));
+    // dispatch(lessonActions.setLesson())
   }, []);
 
   function logout() {
@@ -212,6 +213,7 @@ function ResponsiveDrawer(props) {
               <img src="https://reactjs.org/logo-og.png" alt="React logo" />
             </div>
           </Route>
+          <Route path="/lessons/lesson/:id" component={Lesson} id={props} />
           <Route path="/lessons/lesson">
             <div className="font">
               {lesson ? lesson.text : "lesson text"}
@@ -224,7 +226,6 @@ function ResponsiveDrawer(props) {
           <Route path="/lessons/solutions">
             <Solutions />
           </Route>
-          <Route path="/lessons/lesson/:id" component={Lesson} id={props} />
         </Switch>
       </main>
     </div>
