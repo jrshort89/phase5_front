@@ -179,7 +179,12 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap className="font">
+          <Typography
+            variant="h6"
+            noWrap
+            className="font"
+            style={{ fontSize: "20px", fontFamily: "inherit" }}
+          >
             {lesson ? lesson.name : "Select a lesson to start coding!"}
           </Typography>
         </Toolbar>
@@ -224,12 +229,11 @@ function ResponsiveDrawer(props) {
             </div>
           </Route>
           <Route path="/lessons/lesson/:id" component={Lesson} id={props} />
-          <Route path="/lessons/lesson">
-            <div className="font">
-              {lesson?.text}
+          {/* <Route path="/lessons/lesson">
+            <div>
               <Lesson />
             </div>
-          </Route>
+          </Route> */}
           <Route path="/lessons/newquiz">
             <NewQuiz />
           </Route>

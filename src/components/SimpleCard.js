@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root}>
@@ -38,17 +37,24 @@ export default function SimpleCard(props) {
         <Typography variant="h5" component="h2">
           {props.title}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
+        <br />
+        <br />
+        <br />
+        {/* <Typography className={classes.pos} color="textSecondary">
           adjective
         </Typography>
         <Typography variant="body2" component="p">
           well meaning and kindly.
           <br />
           {'"a benevolent smile"'}
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={props.flipHandler}>
+        <Button
+          size="small"
+          onClick={props.flipHandler}
+          style={{ fontFamily: "inherit", fontSize: "20px" }}
+        >
           Take Quiz
         </Button>
       </CardActions>

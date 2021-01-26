@@ -24,7 +24,7 @@ export default function ChallengeTests(props) {
     const { tests } = props;
     try {
       let test = Function("return " + props.codeValue)();
-      let results = tests.map((problem) => {
+      let testResults = tests.map((problem) => {
         let { input, output } = problem;
         input = Function("return " + input)();
         output = Function("return " + output)();
@@ -35,28 +35,31 @@ export default function ChallengeTests(props) {
             }
           }
           releaseConfetti(true);
-          return "pass";
+          return setResults(...results, <li>Pass</li>);
         }
         if (test(input) === Function("return " + output)()) {
           releaseConfetti(true);
-          return "pass";
+          return setResults(...results, <li>Pass</li>);
         } else {
           return "fail";
         }
       });
-      setResults(results);
+      // setResults(results);
     } catch {
       return false;
     }
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Confetti active={confetti} config={config} />
-      <Button variant="outlined" onClick={testHandler}>
-        test
-      </Button>
-      <div>{results}</div>
-    </div>
+    <>
+      <div>
+        <Confetti active={confetti} config={config} />
+        <Button variant="outlined" onClick={testHandler}>
+          test
+        </Button>
+        <br />
+      </div>
+      <ul style={{ display: "flex", justifyContent: "center" }}>{results}</ul>
+    </>
   );
 }

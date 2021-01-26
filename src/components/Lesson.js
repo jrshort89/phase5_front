@@ -36,8 +36,14 @@ class Lesson extends Component {
 
   testHandler = () => {
     try {
-      let test = Function("return " + this.state.codeValue)();
-      return test() === Function("return " + this.props.lesson?.solution)();
+      // let test = Function("return " + this.state.codeValue)();
+      let test = function (input) {
+        return input;
+      };
+      let solution = function (solution) {
+        return solution;
+      };
+      return test() === solution();
     } catch {
       return false;
     }
@@ -46,14 +52,21 @@ class Lesson extends Component {
   render() {
     return (
       <>
-        {this.props.lesson?.text}
-        <Button
+        <div
+          style={{
+            fontSize: "20px",
+            fontFamily: "inherit",
+          }}
+        >
+          {this.props.lesson?.text}
+        </div>
+        {/* <Button
           onClick={this.onSubmitCode}
           style={{ float: "right" }}
           variant="outlined"
         >
           Edit
-        </Button>
+        </Button> */}
         <br></br>
         <br></br>
         <CodeMirror

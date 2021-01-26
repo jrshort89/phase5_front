@@ -25,7 +25,10 @@ export default class CardFlip extends React.Component {
           title={this.props.quizName}
         />
 
-        <Quiz questions={this.props.questions} flipHandler={this.handleClick} />
+        <Quiz
+          questions={this.props.questions}
+          flipHandler={this.handleClick}
+        />
       </ReactCardFlip>
     );
   }

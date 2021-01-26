@@ -5,14 +5,14 @@ import Button from "@material-ui/core/Button";
 import QuizMenu from "../menus/QuizMenu";
 
 export default function NewQuiz() {
-  const { register, handleSubmit, errors, control } = useForm();
+  const { register, handleSubmit, errors, control, reset } = useForm();
   const [quiz, setQuiz] = useState([]);
 
   const onChangeQuiz = (quiz) => {
     setQuiz(quiz);
   };
 
-  const onSubmitHandler = (data) => {
+  const onSubmitHandler = (data, e) => {
     return fetch("http://localhost:3000/questions", {
       method: "POST",
       headers: {
@@ -30,7 +30,7 @@ export default function NewQuiz() {
       .catch((err) => {
         return alert(err.statusText);
       })
-      .then((json) => console.log(json));
+      .then((json) => console.log(json));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
   };
 
   return (
