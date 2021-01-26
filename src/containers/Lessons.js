@@ -17,7 +17,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
 import { useSelector, useDispatch } from "react-redux";
 import Accordion from "../menus/Accordion";
-import { Switch, Route, Link, useParams } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import Lesson from "../components/Lesson";
 import axios from "../axios";
 import * as lessonActions from "../redux/actions/lessons";
@@ -27,6 +27,9 @@ import LessonForm from "../components/LessonForm";
 import AddIcon from "@material-ui/icons/Add";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Solutions from "../components/Solutions";
+import QuizContainer from "../containers/Quizzes";
+import GrainIcon from "@material-ui/icons/Grain";
+import NewQuiz from "../components/NewQuiz";
 
 const drawerWidth = 240;
 
@@ -68,7 +71,6 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { id } = useParams();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -80,7 +82,6 @@ function ResponsiveDrawer(props) {
   const username = useSelector((state) => state.login.username);
   const lesson = useSelector((state) => state.lesson.lesson);
   const dispatch = useDispatch();
-  console.log(id);
   useEffect(() => {
     axios.get("/subjects").then((data) => {
       dispatch(lessonActions.setLessons(data.data));
@@ -118,6 +119,14 @@ function ResponsiveDrawer(props) {
         </ListItem>
         <ListItem button>
           <ListItemIcon>
+            <GrainIcon />
+          </ListItemIcon>
+          <Link to="/lessons/quizzes" className="sidemenu">
+            <ListItemText primary={"Quizzes"} />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
             <FavoriteIcon />
           </ListItemIcon>
           <Link to="/lessons/solutions" className="sidemenu">
@@ -130,6 +139,14 @@ function ResponsiveDrawer(props) {
           </ListItemIcon>
           <Link to="/lessons/newlesson" className="sidemenu">
             <ListItemText primary={"New Lesson"} />
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <AddIcon />
+          </ListItemIcon>
+          <Link to="/lessons/newquiz" className="sidemenu">
+            <ListItemText primary={"New Quiz"} />
           </Link>
         </ListItem>
         <ListItem button>
@@ -164,13 +181,6 @@ function ResponsiveDrawer(props) {
           </IconButton>
           <Typography variant="h6" noWrap className="font">
             {lesson ? lesson.name : "Select a lesson to start coding!"}
-            <Typography
-              variant="h6"
-              noWrap
-              style={{ float: "right", display: "flex" }}
-            >
-              {username}
-            </Typography>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -216,9 +226,15 @@ function ResponsiveDrawer(props) {
           <Route path="/lessons/lesson/:id" component={Lesson} id={props} />
           <Route path="/lessons/lesson">
             <div className="font">
-              {lesson ? lesson.text : "lesson text"}
+              {lesson?.text}
               <Lesson />
             </div>
+          </Route>
+          <Route path="/lessons/newquiz">
+            <NewQuiz />
+          </Route>
+          <Route path="/lessons/quizzes">
+            <QuizContainer />
           </Route>
           <Route path="/lessons/newlesson">
             <LessonForm />

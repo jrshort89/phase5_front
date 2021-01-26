@@ -46,7 +46,7 @@ class Lesson extends Component {
   render() {
     return (
       <>
-        {this.props.lesson.text}
+        {this.props.lesson?.text}
         <Button
           onClick={this.onSubmitCode}
           style={{ float: "right" }}
