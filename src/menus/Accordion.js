@@ -9,6 +9,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../redux/actions/lessons";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +27,32 @@ export default function SimpleAccordion() {
   const classes = useStyles();
 
   const makeAccordian = ({ name, lessons }) => {
+    const currentUser = +window.sessionStorage.getItem("user_id");
+    const formattedLessons = lessons.map((lesson) => {
+      const completed = lesson.solutions.find(
+        (solution) => solution.user_id === currentUser
+      ) ? (
+        <CheckBoxIcon />
+      ) : (
+        <CheckBoxOutlineBlankIcon />
+      );
+      return (
+        <ListItem button key={lesson.name}>
+          <Typography>
+            <Link
+              to={`/lessons/lesson/${lesson.id}`}
+              className="sidemenu"
+              onClick={() => {
+                dispatch(actions.setLesson(lesson));
+              }}
+            >
+              <span>{completed} &nbsp;</span>
+              {lesson.name}
+            </Link>
+          </Typography>
+        </ListItem>
+      );
+    });
     dispatch(actions.addSubject(name));
     return (
       <Accordion>
@@ -39,28 +68,14 @@ export default function SimpleAccordion() {
             </AccordionSummary>
           </ListItem>
         </List>
-        <List>
-          {lessons.map((lesson) => (
-            <ListItem button key={lesson.name}>
-              <Typography>
-                <Link
-                  to={`/lessons/lesson/${lesson.id}`}
-                  className="sidemenu"
-                  onClick={() => {
-                    dispatch(actions.setLesson(lesson));
-                  }}
-                >
-                  {lesson.name}
-                </Link>
-              </Typography>
-            </ListItem>
-          ))}
-        </List>
+        <List>{formattedLessons}</List>
       </Accordion>
     );
   };
 
-  const lessons = useSelector((state) => state.lesson.lessons);
+  const lessons = useSelector((state) => {
+    return state.lesson.lessons;
+  });
   const dispatch = useDispatch();
 
   return (

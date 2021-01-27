@@ -17,17 +17,25 @@ export default function Solutions() {
     solutions.length > 0
       ? solutions.map((solution) => (
           <>
-            <li key={solution.lesson.name}>{solution.lesson.name}</li>
-            <li key={solution.lesson.text}>{solution.text}</li>
-            {/* <li key={solution.lesson.name}>{solution.text}</li> */}
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div key={solution.lesson.name}>{solution.lesson.name}</div>
+              <div key={solution.lesson.text}>{solution.text}</div>
+              {/* <li key={solution.lesson.name}>{solution.text}</li> */}
+            </div>
+            <br />
           </>
         ))
       : [];
 
   return (
-    <div>
+    <div
+      style={{
+        fontFamily: "inherit",
+        fontSize: "20px",
+      }}
+    >
+      <h2>Solutions</h2>
       {lists}
-      <div>solutions</div>
     </div>
   );
 }

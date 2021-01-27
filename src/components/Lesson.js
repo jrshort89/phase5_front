@@ -23,13 +23,15 @@ class Lesson extends Component {
   };
 
   onSubmitCode = () => {
+    const user_id = window.sessionStorage.getItem("user_id");
     axios
       .post("/solutions", {
         solution: {
           text: this.state.codeValue,
           lesson_id: this.props.lesson.id,
+          user_id: user_id,
         },
-        user_id: window.sessionStorage.getItem("user_id"),
+        user_id: user_id,
       })
       .then((res) => console.log(res));
   };
