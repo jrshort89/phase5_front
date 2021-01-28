@@ -8,12 +8,11 @@ import { createStore, combineReducers } from "redux";
 import loginReducer from "./redux/reducers/loginReducers";
 import lessonsReducer from "./redux/reducers/lessonsReducer";
 import solutionsReducer from "./redux/reducers/solutionsReducer";
-import axios from "./axios";
 
 const reducers = combineReducers({
   login: loginReducer,
   lesson: lessonsReducer,
-  solutions: solutionsReducer
+  solutions: solutionsReducer,
 });
 const store = createStore(reducers);
 

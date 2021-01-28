@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,10 +14,12 @@ import Lessons from "./containers/Lessons";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import * as actions from "./redux/actions/login";
+import SwitchButton from "@material-ui/core/Switch";
 
 export default function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const dispatch = useDispatch();
+  const [mode, setMode] = useState(null);
 
   const theme = React.useMemo(
     () =>
@@ -67,8 +69,14 @@ export default function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={mode || theme}>
       <CssBaseline />
+      {/* <SwitchButton
+        checked={null}
+        onChange={null}
+        name="checkedA"
+        inputProps={{ "aria-label": "secondary checkbox" }}
+      /> */}
       <Router>{routes}</Router>
     </ThemeProvider>
   );
