@@ -11,8 +11,7 @@ require("codemirror/mode/javascript/javascript.js");
 
 class LessonForm extends Component {
   state = {
-    codeValue:
-      "function newProblem() {\n    // write some code here\n return [1] \n};",
+    codeValue: "function newProblem() {\n    // write some code here\n  \n};",
     solution: "",
     arguments: null,
     modal: false,
