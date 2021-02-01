@@ -40,7 +40,7 @@ const lessonReducer = (state = initialState, action) => {
       return {
         ...state,
         lesson: [lesson],
-        lessonTests: []
+        lessonTests: [],
       };
     case actionTypes.ADD_SUBJECT:
       if (state.subjects.includes(action.subject)) return state;
