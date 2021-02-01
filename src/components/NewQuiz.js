@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import QuizMenu from "../menus/QuizMenu";
+import axios from "../axios";
 
 export default function NewQuiz() {
   const { register, handleSubmit, errors, control, reset } = useForm();
@@ -13,15 +14,15 @@ export default function NewQuiz() {
   };
 
   const onSubmitHandler = (data, e) => {
-    return fetch("http://localhost:3000/questions", {
-      method: "POST",
+    return axios.post("/questions", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
         "Access-Control-Allow-Credentials": true,
       },
       withCredentials: true,
-      body: JSON.stringify({ question: data, quiz: quiz }),
+      question: data,
+      quiz: quiz
     })
       .then((data) => {
         if (data.status === 401) throw data;

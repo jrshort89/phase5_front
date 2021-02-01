@@ -90,7 +90,7 @@ function ResponsiveDrawer(props) {
   }, []);
 
   function logout() {
-    fetch(`http://localhost:3000/logout`, {
+    fetch(`https://phase5-deploy.herokuapp.com/logout`, {
       method: "DELETE",
       // credentials: "include",
     })

@@ -67,31 +67,34 @@ export default function SignIn(props) {
     //     'Accept': 'application/json',
     //   })
     //   .then((res) => console.log(res));
-    return fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-      body: JSON.stringify({ user: data }),
-    })
-      .then((data) => {
-        console.log(data);
-        if (data.status === 401) throw data;
-        return data.json();
+    return axios
+      .post("https://phase5-deploy.herokuapp.com/login", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+        user: data,
       })
-      .catch((err) => {
-        return alert(err.statusText);
-        // setTimeout(() => setError(""), 5000);
+      .then((res) => {
+        if (res.status === 401) throw data;
+        console.log(res.data);
+        props.loginHandler(res.data.user.username);
+        window.sessionStorage.setItem("username", res.data.user.username);
+        window.sessionStorage.setItem("user_id", res.data.user.id);
+        return history.push("/lessons");
       })
-      .then((user) => {
-        props.loginHandler(user.user.username);
-        window.sessionStorage.setItem("username", user.user.username);
-        window.sessionStorage.setItem("user_id", user.user.id);
-        history.push("/lessons");
-      });
+    .catch((err) => {
+      return alert(err.statusText);
+      // setTimeout(() => setError(""), 5000);
+    });
+    // .then((user) => {
+    //   props.loginHandler(user.user.username);
+    //   window.sessionStorage.setItem("username", user.user.username);
+    //   window.sessionStorage.setItem("user_id", user.user.id);
+    //   history.push("/lessons");
+    // });
   };
 
   return (

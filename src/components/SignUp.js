@@ -13,6 +13,7 @@ import Container from "@material-ui/core/Container";
 import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
+import axios from "axios";
 
 function Copyright() {
   return (
@@ -65,30 +66,46 @@ export default function SignUp(props) {
     //   })
     //   .then((res) => console.log(res));
 
-    return fetch("http://localhost:3000/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-      body: JSON.stringify({ user: data }),
-    })
-      .then((data) => {
-        if (data.status === 401) throw data;
-        return data.json();
+    // return fetch("https://phase5-deploy.herokuapp.com/users", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //     "Access-Control-Allow-Credentials": true,
+    //   },
+    //   withCredentials: true,
+    //   body: JSON.stringify({ user: data }),
+    // })
+
+    return axios
+      .post("https://phase5-deploy.herokuapp.com/users", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+        // withCredentials: true,
+        user: data,
+      })
+      .then((res) => {
+        if (res.status === 401) throw res;
+        props.loginHandler(res.data.user.username);
+        window.sessionStorage.setItem("username", res.data.user.username);
+        window.sessionStorage.setItem("user_id", res.data.user.id);
+        history.push("/lessons");
+        return res;
       })
       .catch((err) => {
         return alert(err.statusText);
         // setTimeout(() => setError(""), 5000);
-      })
-      .then((user) => {
-        props.loginHandler(user.user.username);
-        window.sessionStorage.setItem("username", user.user.username);
-        window.sessionStorage.setItem("user_id", user.user.id);
-        history.push("/lessons");
       });
+    // .then((user) => {
+    //   console.log(user);
+    // props.loginHandler(user.user.username);
+    // window.sessionStorage.setItem("username", user.user.username);
+    // window.sessionStorage.setItem("user_id", user.user.id);
+    //   history.push("/lessons");
+    // });
   };
 
   return (
