@@ -14,8 +14,6 @@ class Lesson extends Component {
     codeValue: "",
   };
 
-  componentDidMount() {}
-
   onChangeCodeValue = (value) => {
     this.setState({
       codeValue: value,
@@ -38,7 +36,6 @@ class Lesson extends Component {
 
   testHandler = () => {
     try {
-      // let test = Function("return " + this.state.codeValue)();
       let test = function (input) {
         return input;
       };
@@ -62,13 +59,6 @@ class Lesson extends Component {
         >
           {this.props.lesson?.text}
         </div>
-        {/* <Button
-          onClick={this.onSubmitCode}
-          style={{ float: "right" }}
-          variant="outlined"
-        >
-          Edit
-        </Button> */}
         <br></br>
         <br></br>
         <CodeMirror

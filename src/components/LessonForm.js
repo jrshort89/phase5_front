@@ -51,8 +51,6 @@ class LessonForm extends Component {
   };
 
   onChangeArguments = (event) => {
-    // try {}
-    // const input = Function("return " + event.target.value)();
     this.setState({
       arguments: event.target.value,
     });
@@ -132,7 +130,6 @@ class LessonForm extends Component {
                   theme: "material",
                 }}
                 onBeforeChange={(editor, data, value) => {
-                  // this.setState({ codeValue: value });
                   this.onChangeCodeValue(value);
                 }}
               />

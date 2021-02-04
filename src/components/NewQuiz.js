@@ -92,7 +92,6 @@ export default function NewQuiz() {
         <Controller
           as={
             <TextField
-              // autoComplete="answer"
               variant="outlined"
               required
               fullWidth
@@ -132,7 +131,6 @@ export default function NewQuiz() {
         <Controller
           as={
             <TextField
-              // autoComplete="answer"
               variant="outlined"
               required
               fullWidth

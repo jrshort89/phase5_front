@@ -1,4 +1,3 @@
-// Link.react.js
 import React from "react";
 
 const STATUS = {

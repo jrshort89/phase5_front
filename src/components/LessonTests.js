@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 export default function LessonTests(props) {
   const dispatch = useDispatch();
   const lessonTests = useSelector((state) => state.lesson.lessonTests);
-  const classes = useStyles();
 
   const testHandler = () => {
     try {

@@ -58,24 +58,6 @@ export default function SignUp(props) {
   let history = useHistory();
 
   const onSubmitHandler = (data) => {
-    // axios
-    //   .post("http://localhost:3000/login", {
-    //     user: data,
-    //     withCredentials: true,
-    //     'Accept': 'application/json',
-    //   })
-    //   .then((res) => console.log(res));
-
-    // return fetch("https://phase5-deploy.herokuapp.com/users", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //     "Access-Control-Allow-Credentials": true,
-    //   },
-    //   withCredentials: true,
-    //   body: JSON.stringify({ user: data }),
-    // })
 
     return axios
       .post("https://phase5-deploy.herokuapp.com/users", {
@@ -84,7 +66,6 @@ export default function SignUp(props) {
           Accept: "application/json",
           "Access-Control-Allow-Credentials": true,
         },
-        // withCredentials: true,
         user: data,
       })
       .then((res) => {
@@ -97,15 +78,7 @@ export default function SignUp(props) {
       })
       .catch((err) => {
         return alert(err.statusText);
-        // setTimeout(() => setError(""), 5000);
       });
-    // .then((user) => {
-    //   console.log(user);
-    // props.loginHandler(user.user.username);
-    // window.sessionStorage.setItem("username", user.user.username);
-    // window.sessionStorage.setItem("user_id", user.user.id);
-    //   history.push("/lessons");
-    // });
   };
 
   return (
@@ -117,7 +90,6 @@ export default function SignUp(props) {
         </Avatar>
         <Link to="/signin">
           Sign up
-          {/* <Typography component="h1" variant="h5"></Typography> */}
         </Link>
         <form
           className={classes.form}

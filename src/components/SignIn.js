@@ -3,8 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -60,13 +58,6 @@ export default function SignIn(props) {
   let history = useHistory();
 
   const onSubmitHandler = (data) => {
-    // axios
-    //   .post("/login", {
-    //     user: data,
-    //     withCredentials: true,
-    //     'Accept': 'application/json',
-    //   })
-    //   .then((res) => console.log(res));
     return axios
       .post("https://phase5-deploy.herokuapp.com/login", {
         headers: {
@@ -87,14 +78,7 @@ export default function SignIn(props) {
       })
     .catch((err) => {
       return alert(err.statusText);
-      // setTimeout(() => setError(""), 5000);
     });
-    // .then((user) => {
-    //   props.loginHandler(user.user.username);
-    //   window.sessionStorage.setItem("username", user.user.username);
-    //   window.sessionStorage.setItem("user_id", user.user.id);
-    //   history.push("/lessons");
-    // });
   };
 
   return (
@@ -123,9 +107,6 @@ export default function SignIn(props) {
                 label="Email Address"
                 autoComplete="email"
                 autoFocus
-                // ref={register({
-                //   required: true,
-                // })}
                 required
                 inputRef={register}
               />
@@ -165,18 +146,6 @@ export default function SignIn(props) {
               Password is required!
             </Alert>
           )}
-          {/* <FormControlLabel
-            control={
-              <Checkbox
-                inputRef={register}
-                defaultValue={false}
-                value="remember"
-                name="remember"
-                color="primary"
-              />
-            }
-            label="Remember me"
-          /> */}
           <Button
             type="submit"
             fullWidth

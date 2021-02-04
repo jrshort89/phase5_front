@@ -59,7 +59,6 @@ export default function ChallengeTests(props) {
           ]);
         }
       });
-      // setResults(results);
     } catch {
       return false;
     }

@@ -16,7 +16,6 @@ const reducers = combineReducers({
 });
 const store = createStore(reducers);
 
-// axios();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

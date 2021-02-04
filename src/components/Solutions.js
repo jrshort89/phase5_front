@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "../axios";
 
 export default function Solutions() {
-  //   const dispatch = useDispatch();
-  //   dispatch(actions.setSolutions());
-  //   const challengeSolutions = useSelector((state) => state.solutions);
   const [solutions, setSolutions] = useState([]);
 
   useEffect(() => {
@@ -20,7 +17,6 @@ export default function Solutions() {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div key={solution.lesson.name}>{solution.lesson.name}</div>
               <div key={solution.lesson.text}>{solution.text}</div>
-              {/* <li key={solution.lesson.name}>{solution.text}</li> */}
             </div>
             <br />
           </>

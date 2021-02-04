@@ -8,38 +8,6 @@ function Login() {
   const loggedIn = useSelector((state) => state.login.loggedIn);
   const dispatch = useDispatch();
 
-  //   const loginRequest = (event) => {
-  //     event.preventDefault();
-  //     fetch("http://localhost:3000/login", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //         "Access-Control-Allow-Credentials": true,
-  //       },
-  //       credentials: "include",
-  //       body: JSON.stringify({
-  //         user: {
-  //           username,
-  //           password,
-  //         },
-  //       }),
-  //     })
-  //       .then((resp) => {
-  //         if (resp.status === 401) throw resp;
-  //         return resp.json();
-  //       })
-  //       .then((user) => {
-  //         // props.login(true);
-  //         // onSetUsername(user.user);
-  //         // onSetUserId(user.uid);
-  //       })
-  //       .catch((err) => {
-  //         // setError(err.statusText);
-  //         // setTimeout(() => setError(""), 5000);
-  //       });
-  //   };
-
   return (
     <>
       <div>{loggedIn ? <Redirect to="/lessons" /> : "not logged in"}</div>
