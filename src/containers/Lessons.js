@@ -30,6 +30,7 @@ import Solutions from "../components/Solutions";
 import QuizContainer from "../containers/Quizzes";
 import GrainIcon from "@material-ui/icons/Grain";
 import NewQuiz from "../components/NewQuiz";
+import Home from "../components/Home";
 
 const drawerWidth = 240;
 
@@ -224,6 +225,7 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         <Switch>
           <Route path="/lessons" exact={true}>
+            <Home />
             <div style={{ justifyContent: "center", display: "flex" }}>
               <img src="https://reactjs.org/logo-og.png" alt="React logo" />
             </div>

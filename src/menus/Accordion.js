@@ -9,7 +9,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../redux/actions/lessons";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
