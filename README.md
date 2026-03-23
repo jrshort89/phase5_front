@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Hong, this is cool. We need permission to allow GH and Notion to talk.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
